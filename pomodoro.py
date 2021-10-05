@@ -58,7 +58,11 @@ if __name__ == "__main__":
     numPomodoroDone = 0
     while numPomodoro != 0:
         timeCountDownPomodoro = timePomodoro*60
-        strNumTimePomodoro = str(timePomodoro)+" minutes to Work! "+str(numPomodoro) +" Pomodoros left!"
+        if numPomodoro > 1:
+            strNumTimePomodoro = str(timePomodoro)+" minutes to Work! "+str(numPomodoro) +" Pomodoros left!"
+        else:
+            strNumTimePomodoro = str(timePomodoro)+" minutes to Work! "+str(numPomodoro) +" Pomodoro left!"
+
         notify2.init('Pomodoro')
         n = notify2.Notification("Work!",
                                      strNumTimePomodoro,
@@ -86,6 +90,26 @@ if __name__ == "__main__":
         numPomodoroDone += 1
         if numPomodoro == 0:
             clear()
+            if numPomodoroDone*timePomodoro == 1:
+
+                notify2.init('Pomodoro')
+                n = notify2.Notification("Done!",
+                                         "You worked for " + str(numPomodoroDone*timePomodoro)+" minute!",
+                                         "notification-message-im"   # Icon name
+                                        )
+                n.show()
+
+                playsound("Oxygen-Sys-App-Message.ogg")
+
+            else:
+                notify2.init('Pomodoro')
+                n = notify2.Notification("Done!",
+                                         "You worked for " + str(numPomodoroDone*timePomodoro)+" minutes!",
+                                         "notification-message-im"   # Icon name
+                                        )
+                n.show()
+
+                playsound("Oxygen-Sys-App-Message.ogg")
             break
         if numPomodoroDone % 4 == 0:
             notify2.init('Pomodoro')
